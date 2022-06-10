@@ -1,0 +1,31 @@
+version: '3'
+services:
+  redis-server:
+    # Build this container with the official redis image
+    image: redis
+  node-app:
+    # restart container only when something fails
+    restart: on-failure
+    # Build this container with our custom dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # env vars
+    environment:
+      - PORT=8081
+    # map host ports to ports in container
+    ports:
+      - '3000:8081'
+# compose file using pushed up dockerfile / image to docker hub for my nodejs dockerfile
+
+# version: '3'
+# services:
+#   redis-server:
+#     image: redis
+#   node-app:
+#     restart: on-failure
+#     image: tannermbarcelos/node
+#     environment:
+#       - PORT=8081
+#     ports:
+#       - '3000:8081'
